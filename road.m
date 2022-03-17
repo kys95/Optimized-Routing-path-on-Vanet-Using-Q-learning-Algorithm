@@ -349,7 +349,15 @@ end
 % (속도, 초기방향에 따른 각도 )
 %% 시간흐름에 따라 진행
 MAX_TIME = 1000;
+global percent
+percent = 0.4;
 for time = 1:MAX_TIME % 시간에 따른 움직임확인
+        if(rem(time,5) == 0)        % 5초마다 차량 방향확률 갱신
+            percent = percent + 0.1;
+            if(percent == 0.7)
+                percent = 0.4;
+            end
+        end 
         for i=1:Num_vehicle  
             % 각 차량의 초기 방향에 따른 위치 설정 (이를 이용해서 x,y좌표 증감 결정)
             if vehicle(i).direction == '<' % 초기에 왼쪽으로 출발
@@ -499,7 +507,7 @@ for time = 1:MAX_TIME % 시간에 따른 움직임확인
                 elseif(rotation_mode == 4)
                     if(vehicle(i).direction == '^')
                         r =rand();
-                        if(r<0.5)
+                        if(r<percent)
                             % 오른쪽으로 가는 도로에 놓여지도록
                             vehicle(i).direction = '>';
                             d = yrw(vehicle(i).spot_y)/7;
@@ -509,7 +517,7 @@ for time = 1:MAX_TIME % 시간에 따른 움직임확인
                         end
                     elseif(vehicle(i).direction == 'v')
                         r = rand();
-                        if(r<0.5)
+                        if(r<percent)
                             % 오른쪽으로 가는 도로에 놓여지도록
                             vehicle(i).direction = '>';
                             d = yrw(vehicle(i).spot_y)/7;
@@ -517,10 +525,10 @@ for time = 1:MAX_TIME % 시간에 따른 움직임확인
                             vehicle(i).Location = [ xrw(1)+2 ,hor_centerLine(1,vehicle(i).spot_y)-(1.75)*(2*random_d - 1)];
                         else
                         end
-                            
+                        
                     elseif(vehicle(i).direction == '<')
                         r = rand();
-                        if(r<0.5)
+                        if(r<percent)
                             % 위쪽으로 가는 도로에 놓여지도록
                             vehicle(i).direction = '^';
                             d = xrw(1)/7;
@@ -539,7 +547,7 @@ for time = 1:MAX_TIME % 시간에 따른 움직임확인
                 elseif(rotation_mode == 6)
                     if(vehicle(i).direction == '^')
                         r= rand();
-                        if(r<0.5)
+                        if(r<percent)
                             % 왼쪽으로 가는(수평) 도로에 놓여지도록
                             vehicle(i).direction = '<';
                             d = yrw(vehicle(i).spot_y)/7;
@@ -549,7 +557,7 @@ for time = 1:MAX_TIME % 시간에 따른 움직임확인
                             
                     elseif(vehicle(i).direction == 'v')
                         r = rand();
-                        if(r<0.5)
+                        if(r<percent)
                             % 왼쪽으로 가는(수평) 도로에 놓여지도록
                             vehicle(i).direction = '<';
                             d = yrw(vehicle(i).spot_y)/7;
@@ -560,7 +568,7 @@ for time = 1:MAX_TIME % 시간에 따른 움직임확인
                             
                     elseif(vehicle(i).direction == '>')
                         r = rand();
-                        if(r<0.5)
+                        if(r<percent)
                             % 위쪽으로 가는 도로에 놓여지도록
                             vehicle(i).direction = '^';
                             d = xrw(Num_vertical)/7;
@@ -580,7 +588,7 @@ for time = 1:MAX_TIME % 시간에 따른 움직임확인
                 elseif(rotation_mode == 8)
                     if(vehicle(i).direction == '<')
                         r=rand();
-                        if(r<0.5)
+                        if(r<percent)
                             % 위쪽으로 가는 도로에 놓여지도록
                             vehicle(i).direction = '^';
                             d = xrw(vehicle(i).spot_x)/7;
@@ -589,7 +597,7 @@ for time = 1:MAX_TIME % 시간에 따른 움직임확인
                         end
                     elseif(vehicle(i).direction == '>')
                         r=rand();
-                        if(r<0.5)
+                        if(r<percent)
                             % 위쪽으로 가는 도로에 놓여지도록
                             vehicle(i).direction = '^';
                             d = xrw(vehicle(i).spot_x)/7;
@@ -598,7 +606,7 @@ for time = 1:MAX_TIME % 시간에 따른 움직임확인
                         end
                     elseif(vehicle(i).direction == 'v')
                         r = rand();
-                        if(r<0.5)
+                        if(r<percent)
                             % 왼쪽으로 가는(수평) 도로에 놓여지도록
                             vehicle(i).direction = '<';
                             d = yrw(1)/7;
@@ -618,7 +626,7 @@ for time = 1:MAX_TIME % 시간에 따른 움직임확인
                 elseif(rotation_mode == 2)
                     if(vehicle(i).direction == '<')
                         r = rand();
-                        if(r<0.5)
+                        if(r<percent)
                             % 아래쪽으로 가는 도로에 놓여지도록
                             vehicle(i).direction = 'v';
                             d = xrw(vehicle(i).spot_x)/7;
@@ -628,7 +636,7 @@ for time = 1:MAX_TIME % 시간에 따른 움직임확인
                             
                     elseif(vehicle(i).direction == '>')
                         r = rand();
-                        if(r<0.5)
+                        if(r<percent)
                             % 아래쪽으로 가는 도로에 놓여지도록
                             vehicle(i).direction = 'v';
                             d = xrw(vehicle(i).spot_x)/7;
@@ -637,7 +645,7 @@ for time = 1:MAX_TIME % 시간에 따른 움직임확인
                         end
                     elseif(vehicle(i).direction == '^')
                         r = rand();
-                        if(r<0.5)
+                        if(r<percent)
                             % 왼쪽으로 가는(수평) 도로에 놓여지도록
                             vehicle(i).direction = '<';
                             d = yrw(Num_horizontal)/7;
@@ -657,13 +665,13 @@ for time = 1:MAX_TIME % 시간에 따른 움직임확인
                 else %% 내부 교차로
                     if(vehicle(i).direction == '<')
                         r= rand();
-                        if(r<0.3)
+                        if(r<percent)
                             % 위쪽으로 가는 도로에 놓여지도록
                             vehicle(i).direction = '^';
                             d = xrw(vehicle(i).spot_x)/7;
                             random_d = fix(d*rand()+1);
                             vehicle(i).Location = [ ver_centerLine(1,vehicle(i).spot_x)+(1.75)*(2*random_d - 1),hor_centerLine(1,vehicle(i).spot_y)+yrw(vehicle(i).spot_y)/2+2];
-                        elseif((0.3<=r)&&(r<0.6))
+                        elseif((percent<=r)&&(r<0.8))
                             % 아래쪽으로 가는 도로에 놓여지도록
                             vehicle(i).direction = 'v';
                             d = xrw(vehicle(i).spot_x)/7;
@@ -673,13 +681,13 @@ for time = 1:MAX_TIME % 시간에 따른 움직임확인
                             
                     elseif(vehicle(i).direction == '>')
                         r= rand();
-                        if(r<0.3)
+                        if(r<percent)
                             % 위쪽으로 가는 도로에 놓여지도록
                             vehicle(i).direction = '^';
                             d = xrw(vehicle(i).spot_x)/7;
                             random_d = fix(d*rand()+1);
                             vehicle(i).Location = [ ver_centerLine(1,vehicle(i).spot_x)+(1.75)*(2*random_d - 1),hor_centerLine(1,vehicle(i).spot_y)+yrw(vehicle(i).spot_y)/2+2];
-                        elseif((0.3<=r)&&(r<0.6))
+                        elseif((percent<=r)&&(r<0.8))
                             % 아래쪽으로 가는 도로에 놓여지도록
                             vehicle(i).direction = 'v';
                             d = xrw(vehicle(i).spot_x)/7;
@@ -688,13 +696,13 @@ for time = 1:MAX_TIME % 시간에 따른 움직임확인
                         end
                     elseif(vehicle(i).direction == '^')
                         r= rand();
-                        if(r<0.3)
+                        if(r<percent)
                             % 왼쪽으로 가는 도로에 놓여지도록
                             vehicle(i).direction = '<';
                             d = yrw(vehicle(i).spot_y)/7;
                             random_d = fix(d*rand()+1);
                             vehicle(i).Location = [ ver_centerLine(1,vehicle(i).spot_x)-xrw(vehicle(i).spot_x)/2-2, hor_centerLine(1,vehicle(i).spot_y)+(1.75)*(2*random_d - 1),];
-                        elseif((0.3<=r)&&(r<0.6))
+                        elseif((percent<=r)&&(r<0.8))
                             % 오른쪽으로 가는 도로에 놓여지도록
                             vehicle(i).direction = '>';
                             d = yrw(vehicle(i).spot_y)/7;
@@ -703,13 +711,13 @@ for time = 1:MAX_TIME % 시간에 따른 움직임확인
                         end
                     elseif(vehicle(i).direction == 'v')
                         r= rand();
-                        if(r<0.3)
+                        if(r<percent)
                             % 왼쪽으로 가는 도로에 놓여지도록
                             vehicle(i).direction = '<';
                             d = yrw(vehicle(i).spot_y)/7;
                             random_d = fix(d*rand()+1);
                             vehicle(i).Location = [ ver_centerLine(1,vehicle(i).spot_x)-xrw(vehicle(i).spot_x)/2-2, hor_centerLine(1,vehicle(i).spot_y)+(1.75)*(2*random_d - 1),];
-                        elseif((0.3<=r)&&(r<0.6))
+                        elseif((percent<=r)&&(r<0.8))
                             % 오른쪽으로 가는 도로에 놓여지도록
                             vehicle(i).direction = '>';
                             d = yrw(vehicle(i).spot_y)/7;
