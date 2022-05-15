@@ -98,7 +98,7 @@ global xrw
 global yrw
 
 
-%%%%%%%%%%%%%%%%%%%%%%%% axes xÃà, yÃà ¸Â°Ô ¼³Á¤ÇØ Áà¾ßÇÔ %%%%%%%%%%%%%%% 
+%%%%%%%%%%%%%%%%%%%%%%%% axes xì¶•, yì¶• ë§ê²Œ ì„¤ì •í•´ ì¤˜ì•¼í•¨ %%%%%%%%%%%%%%% 
 hAxe = handles.axes1;
 ax_xlim = get(hAxe,'XLim');
 ax_xlim(2) = X_Size_Road;
@@ -108,15 +108,15 @@ ax_ylim = get(hAxe,'YLim');
 ax_ylim(2) = Y_Size_Road;
 set(hAxe,'YLim',ax_ylim);
 
-%%%%%%%%%%%%%%%%%%%%%%% Áö¿ì°³ ¿ªÇÒ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%% ì§€ìš°ê°œ ì—­í•  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 rectangle('position',[0 0 X_Size_Road Y_Size_Road], 'FaceColor',[1 1 1],'EdgeColor',[1 1 1]);
 
-mode_num = lane_to/2; % ¼±ÅÃÇÒ ¼ö ÀÖ´Â Â÷¼ö °¡Áş¼ö
+mode_num = lane_to/2; % ì„ íƒí•  ìˆ˜ ìˆëŠ” ì°¨ìˆ˜ ê°€ì§“ìˆ˜
 
 xrw = zeros(1,Num_vertical-1);
 yrw = zeros(1,Num_horizontal-1);
 
-%%%%%%%%%%%%%%%%%%%%%%% ¼öÁ÷ ¸ŞÀÎ µµ·Î ±×¸®±â  %%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%% ìˆ˜ì§ ë©”ì¸ ë„ë¡œ ê·¸ë¦¬ê¸°  %%%%%%%%%%%%%%%%%%%%%%%%%%%
 ver_interval = X_Size_Road / ( Num_vertical -1 );
 for i=0:Num_vertical-2
     random = fix(mode_num*rand(1,1)+1);
@@ -130,7 +130,7 @@ x_road_width = random*7;
 xrw(1,Num_vertical) = x_road_width;
 rectangle('position',[X_Size_Road-x_road_width 0 x_road_width Y_Size_Road], 'FaceColor',[0.7 0.7 0.7],'EdgeColor',[0.7 0.7 0.7]); 
 
-%%%%%%%%%%%%%%%%%%%%%%% ¼öÆò ¸ŞÀÎ µµ·Î ±×¸®±â  %%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%% ìˆ˜í‰ ë©”ì¸ ë„ë¡œ ê·¸ë¦¬ê¸°  %%%%%%%%%%%%%%%%%%%%%%%%%%%
 hor_interval = Y_Size_Road / ( Num_horizontal -1 );
 for i=0: Num_horizontal-2
     random = fix(mode_num*rand(1,1)+1);
@@ -144,7 +144,7 @@ y_road_width = random*7;
 yrw(1,Num_horizontal) = y_road_width;
 rectangle('position',[0 Y_Size_Road-y_road_width X_Size_Road y_road_width], 'FaceColor',[0.7 0.7 0.7],'EdgeColor',[0.7 0.7 0.7]); 
 
-%%%%%%%%%%%%%%%%%%%%%% Sub µµ·Î cell ¼±ÅÃ ¾Ë°í¸®Áò %%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%% Sub ë„ë¡œ cell ì„ íƒ ì•Œê³ ë¦¬ì¦˜ %%%%%%%%%%%%%%%%%%%%%%
 
 cell_total_num = (Num_horizontal-1) * (Num_vertical-1);
 cell_part_num = fix(cell_total_num * cell_part_ratio);
@@ -156,14 +156,14 @@ for i=1:Num_horizontal-1
         x = ver_interval*(j-1) + xrw(1,j);
         y = hor_interval*(i-1) + yrw(1,i);
         
-        cell_bool = fix(2*rand(1,1));   % ¼¿ÀÌ sub streetÀ¸·Î ¼±ÅÃ µÉ °ÍÀÎÁö, ¸» °ÍÀÎÁö
+        cell_bool = fix(2*rand(1,1));   % ì…€ì´ sub streetìœ¼ë¡œ ì„ íƒ ë  ê²ƒì¸ì§€, ë§ ê²ƒì¸ì§€
         
         if((cell_bool == 1) && ( count ~= cell_part_num ))
             %hold on;
             %plot(x, y, 'b*');
             count = count + 1;
             
-            %%%%%%%%%%%%%% Sub vertical, horizontal, both °áÁ¤ %%%%%%%%%%%%
+            %%%%%%%%%%%%%% Sub vertical, horizontal, both ê²°ì • %%%%%%%%%%%%
            
             random_vhb = rand(1);
       
@@ -197,7 +197,7 @@ for i=1:Num_horizontal-1
     end
 end
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%% Áß¾Ó¼± ±×¸®±â %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%% ì¤‘ì•™ì„  ê·¸ë¦¬ê¸° %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 global ver_centerLine
 global hor_centerLine
@@ -233,8 +233,8 @@ global RSU_NUM
 global RSU_POSITION
 
 RSU_NUM=Num_horizontal*Num_vertical;
-RSU_POSITION = zeros(RSU_NUM,2); %RSUÀÇ °¹¼ö * 2ÀÇ¹è¿­ ¼±¾ğ
-%%%%%%%%%%%%%%%%%%%%%%%%%% È¸Àü Spot ±×¸®±â %%%%%%%%%%%%%%%%%%%%%%%%%%%
+RSU_POSITION = zeros(RSU_NUM,2); %RSUì˜ ê°¯ìˆ˜ * 2ì˜ë°°ì—´ ì„ ì–¸
+%%%%%%%%%%%%%%%%%%%%%%%%%% íšŒì „ Spot ê·¸ë¦¬ê¸° %%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 spot = struct();
 spot_count = 1;
@@ -258,15 +258,15 @@ for i=1:Num_horizontal
         
         RSU_POSITION(spot_count,1)=x;
         RSU_POSITION(spot_count,2)=y;
-        spot(i,j).Xpoint = x; % ÇØ´ç spotÀÇ xÁÂÇ¥
-        spot(i,j).Ypoint = y; % ÇØ´ç spotÀÇ yÁÂÇ¥
-        spot_count = spot_count + 1;   % spot °¹¼ö 1 Áõ°¡
+        spot(i,j).Xpoint = x; % í•´ë‹¹ spotì˜ xì¢Œí‘œ
+        spot(i,j).Ypoint = y; % í•´ë‹¹ spotì˜ yì¢Œí‘œ
+        spot_count = spot_count + 1;   % spot ê°¯ìˆ˜ 1 ì¦ê°€
     end
 end
 
-%set(handles.num_spot,'String',spot_count); % spot °¹¼ö Ãâ·Â (¸¶Áö¸·¿¡ +1 ÇØÁà¼­ 1°³ ´õ Å©°Ô ³ª¿È)
+%set(handles.num_spot,'String',spot_count); % spot ê°¯ìˆ˜ ì¶œë ¥ (ë§ˆì§€ë§‰ì— +1 í•´ì¤˜ì„œ 1ê°œ ë” í¬ê²Œ ë‚˜ì˜´)
 
-%%%%%%%%%%%%% Lane dependent ÀÏ ¶§, ÇÑ Â÷¼±´ç ±×·ÁÁú Â÷·® ¼ö(unit_car_num) °è»ê %%%%%%%%%%%%%
+%%%%%%%%%%%%% Lane dependent ì¼ ë•Œ, í•œ ì°¨ì„ ë‹¹ ê·¸ë ¤ì§ˆ ì°¨ëŸ‰ ìˆ˜(unit_car_num) ê³„ì‚° %%%%%%%%%%%%%
 num_lane_hor = 0;
 num_lane_ver = 0;
 
@@ -282,7 +282,7 @@ end
 
 unit_car_num = fix(Num_vehicle / (num_lane_hor + num_lane_ver));
 
-%%%%%%%%%%%%% unit_car_num °¹¼ö °è»êÇÒ ¹è¿­»ı¼º %%%%%%%%%%%
+%%%%%%%%%%%%% unit_car_num ê°¯ìˆ˜ ê³„ì‚°í•  ë°°ì—´ìƒì„± %%%%%%%%%%%
 if(Num_horizontal > Num_vertical)
     car_count = zeros(4,Num_horizontal);
 else
@@ -291,9 +291,9 @@ end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-vehicle=struct(); % vehicle °ü·Ã º¯¼öµé struct·Î Çü½ÌÈ­ÇÔ
-RV=10; % Vehicle¿¡ µé¾î°¥ componentÀÇ °¹¼ö
-temp=zeros(1,length(RV)); % ÃÊ±â ¼³Á¤½Ã ÇÊ¿äÇÑ ÀÓ½Ã random number »ı¼ºÇÒ °¹¼ö
+vehicle=struct(); % vehicle ê´€ë ¨ ë³€ìˆ˜ë“¤ structë¡œ í˜•ì‹±í™”í•¨
+RV=10; % Vehicleì— ë“¤ì–´ê°ˆ componentì˜ ê°¯ìˆ˜
+temp=zeros(1,length(RV)); % ì´ˆê¸° ì„¤ì •ì‹œ í•„ìš”í•œ ì„ì‹œ random number ìƒì„±í•  ê°¯ìˆ˜
 
 for i=1:Num_vehicle+RSU_NUM
     if(i>Num_vehicle)
@@ -301,13 +301,13 @@ for i=1:Num_vehicle+RSU_NUM
         vehicle(i).spot_in = 0;
         vehicle(i).speed = 0;      
     end
-    %%%% vehicle¸¶´Ù °íÀ¯ÀÇ ID ºÎ¿©ÇØÁÜ
+    %%%% vehicleë§ˆë‹¤ ê³ ìœ ì˜ ID ë¶€ì—¬í•´ì¤Œ
     vehicle(i).ID = i;
     vehicle(i).spot_in = 0;
     vehicle(i).spot_x = 0;
     vehicle(i).spot_y = 0;
     
-    %%%%%% ¼Óµµ ¼³Á¤ %%%%%%
+    %%%%%% ì†ë„ ì„¤ì • %%%%%%
     if(i < Num_vehicle/3)
         vehicle(i). speed = 0.2;
     elseif((i>= Num_vehicle/3) && ( i < (Num_vehicle*2)/3) )
@@ -317,44 +317,44 @@ for i=1:Num_vehicle+RSU_NUM
     end
     
     
-    %%%% ÃÊ±â ¹æÇâ ¼³Á¤
-    temp(1,1) = rand(); % ÃÊ±â¹æÇâ¼³Á¤À§ÇÑ ³­¼ö -> 0.25 ÀÌÇÏ¸é a¹æÇâ 0.25ÀÌ»ó 0.5ÀÌÇÏ´Â b ¹æÇâ
-                        % temp(1,1) : ÃÊ±â ¹æÇâ ¼³Á¤À» À§ÇÑ ·£´ı º¯¼ö ÀúÀå
-                        % ¿ŞÂÊ : < , À§ÂÊ : ^ , ¿À¸¥ÂÊ: > , ¾Æ·¡ÂÊ : v
+    %%%% ì´ˆê¸° ë°©í–¥ ì„¤ì •
+    temp(1,1) = rand(); % ì´ˆê¸°ë°©í–¥ì„¤ì •ìœ„í•œ ë‚œìˆ˜ -> 0.25 ì´í•˜ë©´ aë°©í–¥ 0.25ì´ìƒ 0.5ì´í•˜ëŠ” b ë°©í–¥
+                        % temp(1,1) : ì´ˆê¸° ë°©í–¥ ì„¤ì •ì„ ìœ„í•œ ëœë¤ ë³€ìˆ˜ ì €ì¥
+                        % ì™¼ìª½ : < , ìœ„ìª½ : ^ , ì˜¤ë¥¸ìª½: > , ì•„ë˜ìª½ : v
     %temp(1,1) = 0.2;
                      
     if temp(1,1) < 0.25
-        vehicle(i).direction = '<'; % ÃÊ±â¿¡ ¿ŞÂÊÀ¸·Î Ãâ¹ß
+        vehicle(i).direction = '<'; % ì´ˆê¸°ì— ì™¼ìª½ìœ¼ë¡œ ì¶œë°œ
     elseif temp(1,1) >=0.25 && temp(1,1) < 0.5
-        vehicle(i).direction = '^'; % ÃÊ±â¿¡ À§ÂÊÀ¸·Î Ãâ¹ß
+        vehicle(i).direction = '^'; % ì´ˆê¸°ì— ìœ„ìª½ìœ¼ë¡œ ì¶œë°œ
     elseif temp(1,1) >=0.5 && temp(1,1) < 0.75
-        vehicle(i).direction = '>'; % ÃÊ±â¿¡ ¿À¸¥ÂÊÀ¸·Î Ãâ¹ß
+        vehicle(i).direction = '>'; % ì´ˆê¸°ì— ì˜¤ë¥¸ìª½ìœ¼ë¡œ ì¶œë°œ
     else
-        vehicle(i).direction = 'v'; % ÃÊ±â¿¡ ¾Æ·¡ÂÊÀ¸·Î Ãâ¹ß
+        vehicle(i).direction = 'v'; % ì´ˆê¸°ì— ì•„ë˜ìª½ìœ¼ë¡œ ì¶œë°œ
     end
     
     
-    %%%% ÃÊ±â À§Ä¡ ¼³Á¤
-    if vehicle(i).direction == '<' % ÃÊ±â¹æÇâÀÌ ¿ŞÂÊÀÌ¶ó¸é
-        % ¿ŞÂÊÀ¸·Î °¡´Â(¼öÆò) µµ·Î¿¡ ³õ¿©Áöµµ·Ï
-        % ÀÌ¶§, ¼öÆò µµ·Î¿¡ ³õ¿©Áö´Â xÁÂÇ¥´Â µ¿ÀÏ¹üÀ§(xrw(1)~X_Road_Size - xrw(3))·Î¼³Á¤
+    %%%% ì´ˆê¸° ìœ„ì¹˜ ì„¤ì •
+    if vehicle(i).direction == '<' % ì´ˆê¸°ë°©í–¥ì´ ì™¼ìª½ì´ë¼ë©´
+        % ì™¼ìª½ìœ¼ë¡œ ê°€ëŠ”(ìˆ˜í‰) ë„ë¡œì— ë†“ì—¬ì§€ë„ë¡
+        % ì´ë•Œ, ìˆ˜í‰ ë„ë¡œì— ë†“ì—¬ì§€ëŠ” xì¢Œí‘œëŠ” ë™ì¼ë²”ìœ„(xrw(1)~X_Road_Size - xrw(3))ë¡œì„¤ì •
         temp(1,2) = fix(Num_horizontal*rand()+1);
         t = temp(1,2);
-        d = yrw(t)/7;   %Â÷¼±À» °í·ÁÇÑ Â÷ ºĞÆ÷¸¦ À§ÇÑ º¯¼ö
+        d = yrw(t)/7;   %ì°¨ì„ ì„ ê³ ë ¤í•œ ì°¨ ë¶„í¬ë¥¼ ìœ„í•œ ë³€ìˆ˜
         random_d = fix(d*rand()+1);
         vehicle(i).Location = [ fix(xrw(1,1)+(X_Size_Road-xrw(1,3))*rand()),hor_centerLine(1,t)+(1.75)*(2*random_d - 1)];
 
 %         temp(1,2) = fix(Num_horizontal*rand()+1);
 %         t = temp(1,2);
 %         no = t;
-%         d = yrw(t)/7;   %Â÷¼±À» °í·ÁÇÑ Â÷ ºĞÆ÷¸¦ À§ÇÑ º¯¼ö
+%         d = yrw(t)/7;   %ì°¨ì„ ì„ ê³ ë ¤í•œ ì°¨ ë¶„í¬ë¥¼ ìœ„í•œ ë³€ìˆ˜
 %         random_d = fix(d*rand()+1);
 %         
 %         if( car_count(1,t) == (unit_car_num*d));
 %             while(t == no);
 %                 temp(1,2) = fix(Num_horizontal*rand()+1);
 %                 t = temp(1,2);
-%                 d = yrw(t)/7;   % Â÷¼±À» °í·ÁÇÑ Â÷ ºĞÆ÷¸¦ À§ÇÑ º¯¼ö
+%                 d = yrw(t)/7;   % ì°¨ì„ ì„ ê³ ë ¤í•œ ì°¨ ë¶„í¬ë¥¼ ìœ„í•œ ë³€ìˆ˜
 %                 random_d = fix(d*rand()+1);
 %             end        
 %         end
@@ -365,24 +365,24 @@ for i=1:Num_vehicle+RSU_NUM
 
     
       
-    elseif vehicle(i).direction == '^' % ÃÊ±â¹æÇâÀÌ À§ÂÊÀÌ¶ó¸é
-        % À§ÂÊÀ¸·Î °¡´Â µµ·Î¿¡ ³õ¿©Áöµµ·Ï
+    elseif vehicle(i).direction == '^' % ì´ˆê¸°ë°©í–¥ì´ ìœ„ìª½ì´ë¼ë©´
+        % ìœ„ìª½ìœ¼ë¡œ ê°€ëŠ” ë„ë¡œì— ë†“ì—¬ì§€ë„ë¡
         temp(1,3) = fix(Num_vertical*rand()+1);
         t = temp(1,3);
         d = xrw(t)/7;
         random_d = fix(d*rand()+1);
         vehicle(i).Location = [ ver_centerLine(1,t)+(1.75)*(2*random_d - 1),fix(yrw(1,1)+(Y_Size_Road-yrw(1,3))*rand()),];
         
-    elseif vehicle(i).direction == '>' % ÃÊ±â¹æÇâÀÌ ¿À¸¥ÂÊÀÌ¶ó¸é
-        % ¿À¸¥ÂÊÀ¸·Î °¡´Â µµ·Î¿¡ ³õ¿©Áöµµ·Ï
+    elseif vehicle(i).direction == '>' % ì´ˆê¸°ë°©í–¥ì´ ì˜¤ë¥¸ìª½ì´ë¼ë©´
+        % ì˜¤ë¥¸ìª½ìœ¼ë¡œ ê°€ëŠ” ë„ë¡œì— ë†“ì—¬ì§€ë„ë¡
         temp(1,4) = fix(Num_horizontal*rand()+1);
         t = temp(1,4);
         d = yrw(t)/7;
         random_d = fix(d*rand()+1);
         vehicle(i).Location = [ fix(xrw(1,1)+(X_Size_Road-xrw(1,3))*rand()),hor_centerLine(1,t)-(1.75)*(2*random_d - 1)];
         
-    elseif vehicle(i).direction == 'v' % ÃÊ±â¹æÇâÀÌ ¾Æ·¡ÂÊÀÌ¶ó¸é
-        % ¾Æ·¡ÂÊÀ¸·Î °¡´Â µµ·Î¿¡ ³õ¿©Áöµµ·Ï
+    elseif vehicle(i).direction == 'v' % ì´ˆê¸°ë°©í–¥ì´ ì•„ë˜ìª½ì´ë¼ë©´
+        % ì•„ë˜ìª½ìœ¼ë¡œ ê°€ëŠ” ë„ë¡œì— ë†“ì—¬ì§€ë„ë¡
         temp(1,5) = fix(Num_vertical*rand()+1);
         t = temp(1,5);
         d = xrw(t)/7;
@@ -396,13 +396,13 @@ global source
 global destination
 global distance
 
-distance = zeros(length(Num_vehicle),length(Num_vehicle)); %°¢ vehicle°£ÀÇ °Å¸® ÃøÁ¤
+distance = zeros(length(Num_vehicle),length(Num_vehicle)); %ê° vehicleê°„ì˜ ê±°ë¦¬ ì¸¡ì •
 
 vehicle(source).s = text(vehicle(source).Location(1)+10,vehicle(source).Location(2)+10,'source','Position',[300 300]);
 vehicle(destination).d = text(vehicle(destination).Location(1)+10,vehicle(destination).Location(2)+10,'destination','Position',[300 300]);
 
-%% %%%%%%%%%%%%%%%%%%%% Ã³À½ Â÷·® ±×¸®±â %%%%%%%%%%%%%%%%%%%%%%%%
-for i=1:Num_vehicle+RSU_NUM % Â÷·® ÇÑ¹ø¿¡ »ı¼ºÇØ¼­ »Ñ·ÁÁÖ±â
+%% %%%%%%%%%%%%%%%%%%%% ì²˜ìŒ ì°¨ëŸ‰ ê·¸ë¦¬ê¸° %%%%%%%%%%%%%%%%%%%%%%%%
+for i=1:Num_vehicle+RSU_NUM % ì°¨ëŸ‰ í•œë²ˆì— ìƒì„±í•´ì„œ ë¿Œë ¤ì£¼ê¸°
     if(i>Num_vehicle)
         vehicle(i).Location(1)=RSU_POSITION(i-Num_vehicle,1);
         vehicle(i).Location(2)=RSU_POSITION(i-Num_vehicle,2);
@@ -450,11 +450,11 @@ set(handles.text111,'String',d2);
 set(handles.text123,'String',source);
 set(handles.text125,'String',destination);
 
-timev = repmat(struct('send',1:Num_vehicle+RSU_NUM,'reply',1:Num_vehicle+RSU_NUM,'flag',0),1,MAX_TIME);
-info = zeros(Num_vehicle+RSU_NUM,Num_vehicle+RSU_NUM,Num_vehicle+RSU_NUM);
-line_bool = zeros(Num_vehicle+RSU_NUM, Num_vehicle+RSU_NUM);
+timev = repmat(struct('send',1:Num_vehicle,'reply',1:Num_vehicle,'flag',0),1,MAX_TIME);
+info = zeros(Num_vehicle,Num_vehicle,Num_vehicle);
+line_bool = zeros(Num_vehicle, Num_vehicle);
 
-%%%%%%%%% RREQ º¯¼ö %%%%%%%%%%%%
+%%%%%%%%% RREQ ë³€ìˆ˜ %%%%%%%%%%%%
 first_rreq_seq_mode = 0;
 rreq_mode = 1;
 rrep_mode = 0;
@@ -463,7 +463,7 @@ hop_count = 0;
 retry_mode = 0;
 
 RREQ_Line_count = 0;
-RREQ1_Line_count = 0;% ¶óÀÎ °¹¼ö
+RREQ1_Line_count = 0;% ë¼ì¸ ê°¯ìˆ˜
 RREP_Line_count = 0;
 DATA_Line_count = 0;
 a = 0
@@ -476,54 +476,54 @@ max4 = 0;
 rp1 = 1;
 rp2 = 1;
 
-RREQ = struct(); %RREQ °ü·Ã ¼Ó¼º ÀúÀå(draw, source, destination)
-RREP = struct(); %RREP °ü·Ã ¼Ó¼º ÀúÀå
+RREQ = struct(); %RREQ ê´€ë ¨ ì†ì„± ì €ì¥(draw, source, destination)
+RREP = struct(); %RREP ê´€ë ¨ ì†ì„± ì €ì¥
 DATA = struct();
 
 for i=1:MAX_TIME 
-    for j=1:1:Num_vehicle+RSU_NUM
+    for j=1:1:Num_vehicle
         timev(i).flag(j) = 0;
         timev(i).reply(j) = 0;
         timev(i).send(j) = 0;
     end
 end
 
-tic %¼öÇà½Ã°£ ÃøÁ¤
-%% %%%%%%%%%%%%%% Move Á¤º¸ ½ÃÀÛ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% (¼Óµµ, ÃÊ±â¹æÇâ¿¡ µû¸¥ °¢µµ )
-%% ½Ã°£Èå¸§¿¡ µû¶ó ÁøÇà
-for ret = 1:nr %10¹ø Àç½Ãµµ
-    for time = 1:rt % ½Ã°£¿¡ µû¸¥ ¿òÁ÷ÀÓÈ®ÀÎ
+tic %ìˆ˜í–‰ì‹œê°„ ì¸¡ì •
+%% %%%%%%%%%%%%%% Move ì •ë³´ ì‹œì‘ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% (ì†ë„, ì´ˆê¸°ë°©í–¥ì— ë”°ë¥¸ ê°ë„ )
+%% ì‹œê°„íë¦„ì— ë”°ë¼ ì§„í–‰
+for ret = 1:nr %10ë²ˆ ì¬ì‹œë„
+    for time = 1:rt % ì‹œê°„ì— ë”°ë¥¸ ì›€ì§ì„í™•ì¸
           for i=1:Num_vehicle+RSU_NUM
              
-                % °¢ Â÷·®ÀÇ ÃÊ±â ¹æÇâ¿¡ µû¸¥ À§Ä¡ ¼³Á¤ (ÀÌ¸¦ ÀÌ¿ëÇØ¼­ x,yÁÂÇ¥ Áõ°¨ °áÁ¤)
-                if vehicle(i).direction == '<' % ÃÊ±â¿¡ ¿ŞÂÊÀ¸·Î Ãâ¹ß
-                    % ¿ŞÂÊÀÌµ¿
+                % ê° ì°¨ëŸ‰ì˜ ì´ˆê¸° ë°©í–¥ì— ë”°ë¥¸ ìœ„ì¹˜ ì„¤ì • (ì´ë¥¼ ì´ìš©í•´ì„œ x,yì¢Œí‘œ ì¦ê° ê²°ì •)
+                if vehicle(i).direction == '<' % ì´ˆê¸°ì— ì™¼ìª½ìœ¼ë¡œ ì¶œë°œ
+                    % ì™¼ìª½ì´ë™
                     vehicle(i).Location(1) = vehicle(i).Location(1) - vehicle(i).speed;
                     if(vehicle(i).Location(1) < 0)
                         vehicle(i).Location(1) = X_Size_Road;
                     end
                 elseif  vehicle(i).direction == '^'
-                    % À§ÂÊÀÌµ¿
+                    % ìœ„ìª½ì´ë™
                     vehicle(i).Location(2) = vehicle(i).Location(2) + vehicle(i).speed;
                     if(vehicle(i).Location(2) > Y_Size_Road)
                         vehicle(i).Location(2) = 0;
                     end
                 elseif   vehicle(i).direction == '>' 
-                    % ¿À¸¥ÂÊÀÌµ¿
+                    % ì˜¤ë¥¸ìª½ì´ë™
                     vehicle(i).Location(1) = vehicle(i).Location(1) + vehicle(i).speed;
                      if(vehicle(i).Location(1) > X_Size_Road)
                         vehicle(i).Location(1) = 0;
                     end
                 elseif vehicle(i).direction == 'v'
-                    % ¾Æ·¡ÂÊÀÌµ¿
+                    % ì•„ë˜ìª½ì´ë™
                     vehicle(i).Location(2) = vehicle(i).Location(2) - vehicle(i).speed;
                     if(vehicle(i).Location(2) < 0)
                         vehicle(i).Location(2) = Y_Size_Road;
                     end
                 end
 
-                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% rotation mode °áÁ¤ %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+                %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% rotation mode ê²°ì • %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
                 for spot_i=1:Num_horizontal
                     for spot_j=1:Num_vertical
@@ -551,7 +551,7 @@ for ret = 1:nr %10¹ø Àç½Ãµµ
                                     rotation_mode = 9;
                                 end
 
-                                vehicle(i).spot_in = 1; % spot¾È¿¡ ÀÖÀ½À» ³ªÅ¸³»´Â º¯¼ö
+                                vehicle(i).spot_in = 1; % spotì•ˆì— ìˆìŒì„ ë‚˜íƒ€ë‚´ëŠ” ë³€ìˆ˜
                                 vehicle(i).spot_x = spot_j;
                                 vehicle(i).spot_y = spot_i;
 
@@ -562,19 +562,19 @@ for ret = 1:nr %10¹ø Àç½Ãµµ
 
                 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-                %%%%%%%%%%%%%%%%%%%%%rotation mode¿¡ µû¸¥  x,y ¹æÇâ °áÁ¤(¹æÇâ ÀüÈ¯)%%%%%%%%%%%%%%%%%%
+                %%%%%%%%%%%%%%%%%%%%%rotation modeì— ë”°ë¥¸  x,y ë°©í–¥ ê²°ì •(ë°©í–¥ ì „í™˜)%%%%%%%%%%%%%%%%%%
 
                 if(vehicle(i).spot_in == 1)
                     if(rotation_mode == 1)
                         if(vehicle(i).direction == 'v')
-                            % ¿À¸¥ÂÊÀ¸·Î °¡´Â µµ·Î¿¡ ³õ¿©Áöµµ·Ï
+                            % ì˜¤ë¥¸ìª½ìœ¼ë¡œ ê°€ëŠ” ë„ë¡œì— ë†“ì—¬ì§€ë„ë¡
                             vehicle(i).direction = '>';
                             d = yrw(1)/7;
                             random_d = fix(d*rand()+1);
                             vehicle(i).Location = [ xrw(1)+2 ,hor_centerLine(1,1)-(1.75)*(2*random_d - 1)];
 
                         elseif(vehicle(i).direction == '<')
-                            % À§ÂÊÀ¸·Î °¡´Â µµ·Î¿¡ ³õ¿©Áöµµ·Ï
+                            % ìœ„ìª½ìœ¼ë¡œ ê°€ëŠ” ë„ë¡œì— ë†“ì—¬ì§€ë„ë¡
                             vehicle(i).direction = '^';
                             d = xrw(1)/7;
                             random_d = fix(d*rand()+1);
@@ -586,14 +586,14 @@ for ret = 1:nr %10¹ø Àç½Ãµµ
 
                     elseif(rotation_mode == 2)
                         if(vehicle(i).direction == 'v')
-                            % ¿ŞÂÊÀ¸·Î °¡´Â(¼öÆò) µµ·Î¿¡ ³õ¿©Áöµµ·Ï
+                            % ì™¼ìª½ìœ¼ë¡œ ê°€ëŠ”(ìˆ˜í‰) ë„ë¡œì— ë†“ì—¬ì§€ë„ë¡
                             vehicle(i).direction = '<';
                             d = yrw(1)/7;
                             random_d = fix(d*rand()+1);
                             vehicle(i).Location = [X_Size_Road-xrw(1,Num_vertical)-2,hor_centerLine(1,1)+(1.75)*(2*random_d - 1)];
 
                         elseif(vehicle(i).direction == '>')
-                            % À§ÂÊÀ¸·Î °¡´Â µµ·Î¿¡ ³õ¿©Áöµµ·Ï
+                            % ìœ„ìª½ìœ¼ë¡œ ê°€ëŠ” ë„ë¡œì— ë†“ì—¬ì§€ë„ë¡
                             vehicle(i).direction = '^';
                             d = xrw(Num_vertical)/7;
                             random_d = fix(d*rand()+1);
@@ -606,14 +606,14 @@ for ret = 1:nr %10¹ø Àç½Ãµµ
 
                     elseif(rotation_mode == 3)
                         if(vehicle(i).direction == '<')
-                            % ¾Æ·¡ÂÊÀ¸·Î °¡´Â µµ·Î¿¡ ³õ¿©Áöµµ·Ï
+                            % ì•„ë˜ìª½ìœ¼ë¡œ ê°€ëŠ” ë„ë¡œì— ë†“ì—¬ì§€ë„ë¡
                             vehicle(i).direction = 'v';
                             d = xrw(1)/7;
                             random_d = fix(d*rand()+1);
                             vehicle(i).Location = [ ver_centerLine(1,1)-(1.75)*(2*random_d - 1),Y_Size_Road-yrw(1,Num_horizontal)-2];
 
                         elseif(vehicle(i).direction == '^')
-                            % ¿À¸¥ÂÊÀ¸·Î °¡´Â µµ·Î¿¡ ³õ¿©Áöµµ·Ï
+                            % ì˜¤ë¥¸ìª½ìœ¼ë¡œ ê°€ëŠ” ë„ë¡œì— ë†“ì—¬ì§€ë„ë¡
                             vehicle(i).direction = '>';
                             d = yrw(Num_horizontal)/7;
                             random_d = fix(d*rand()+1);
@@ -625,14 +625,14 @@ for ret = 1:nr %10¹ø Àç½Ãµµ
 
                     elseif(rotation_mode == 4)
                         if(vehicle(i).direction == '>')
-                            % ¾Æ·¡ÂÊÀ¸·Î °¡´Â µµ·Î¿¡ ³õ¿©Áöµµ·Ï
+                            % ì•„ë˜ìª½ìœ¼ë¡œ ê°€ëŠ” ë„ë¡œì— ë†“ì—¬ì§€ë„ë¡
                             vehicle(i).direction = 'v';
                             d = xrw(Num_vertical)/7;
                             random_d = fix(d*rand()+1);
                             vehicle(i).Location = [ ver_centerLine(1,Num_vertical)-(1.75)*(2*random_d - 1),Y_Size_Road-yrw(1,Num_horizontal)-2];
 
                         elseif(vehicle(i).direction == '^')
-                            % ¿ŞÂÊÀ¸·Î °¡´Â(¼öÆò) µµ·Î¿¡ ³õ¿©Áöµµ·Ï
+                            % ì™¼ìª½ìœ¼ë¡œ ê°€ëŠ”(ìˆ˜í‰) ë„ë¡œì— ë†“ì—¬ì§€ë„ë¡
                             vehicle(i).direction = '<';
                             d = yrw(Num_horizontal)/7;
                             random_d = fix(d*rand()+1);
@@ -645,7 +645,7 @@ for ret = 1:nr %10¹ø Àç½Ãµµ
                         if(vehicle(i).direction == '^')
                             r =rand();
                             if(r<0.3)
-                                % ¿À¸¥ÂÊÀ¸·Î °¡´Â µµ·Î¿¡ ³õ¿©Áöµµ·Ï
+                                % ì˜¤ë¥¸ìª½ìœ¼ë¡œ ê°€ëŠ” ë„ë¡œì— ë†“ì—¬ì§€ë„ë¡
                                 vehicle(i).direction = '>';
                                 d = yrw(vehicle(i).spot_y)/7;
                                 random_d = fix(d*rand()+1);
@@ -655,7 +655,7 @@ for ret = 1:nr %10¹ø Àç½Ãµµ
                         elseif(vehicle(i).direction == 'v')
                             r = rand();
                             if(r<0.3)
-                                % ¿À¸¥ÂÊÀ¸·Î °¡´Â µµ·Î¿¡ ³õ¿©Áöµµ·Ï
+                                % ì˜¤ë¥¸ìª½ìœ¼ë¡œ ê°€ëŠ” ë„ë¡œì— ë†“ì—¬ì§€ë„ë¡
                                 vehicle(i).direction = '>';
                                 d = yrw(vehicle(i).spot_y)/7;
                                 random_d = fix(d*rand()+1);
@@ -666,13 +666,13 @@ for ret = 1:nr %10¹ø Àç½Ãµµ
                         elseif(vehicle(i).direction == '<')
                             r = rand();
                             if(r<0.5)
-                                % À§ÂÊÀ¸·Î °¡´Â µµ·Î¿¡ ³õ¿©Áöµµ·Ï
+                                % ìœ„ìª½ìœ¼ë¡œ ê°€ëŠ” ë„ë¡œì— ë†“ì—¬ì§€ë„ë¡
                                 vehicle(i).direction = '^';
                                 d = xrw(1)/7;
                                 random_d = fix(d*rand()+1);
                                 vehicle(i).Location = [ ver_centerLine(1,1)+(1.75)*(2*random_d - 1),hor_centerLine(1,vehicle(i).spot_y)+yrw(vehicle(i).spot_y)/2+2];
                             else
-                                % ¾Æ·¡ÂÊÀ¸·Î °¡´Â µµ·Î¿¡ ³õ¿©Áöµµ·Ï
+                                % ì•„ë˜ìª½ìœ¼ë¡œ ê°€ëŠ” ë„ë¡œì— ë†“ì—¬ì§€ë„ë¡
                                 vehicle(i).direction = 'v';
                                 d = xrw(1)/7;
                                 random_d = fix(d*rand()+1);
@@ -685,7 +685,7 @@ for ret = 1:nr %10¹ø Àç½Ãµµ
                         if(vehicle(i).direction == '^')
                             r= rand();
                             if(r<0.3)
-                                % ¿ŞÂÊÀ¸·Î °¡´Â(¼öÆò) µµ·Î¿¡ ³õ¿©Áöµµ·Ï
+                                % ì™¼ìª½ìœ¼ë¡œ ê°€ëŠ”(ìˆ˜í‰) ë„ë¡œì— ë†“ì—¬ì§€ë„ë¡
                                 vehicle(i).direction = '<';
                                 d = yrw(vehicle(i).spot_y)/7;
                                 random_d = fix(d*rand()+1);
@@ -695,7 +695,7 @@ for ret = 1:nr %10¹ø Àç½Ãµµ
                         elseif(vehicle(i).direction == 'v')
                             r = rand();
                             if(r<0.3)
-                                % ¿ŞÂÊÀ¸·Î °¡´Â(¼öÆò) µµ·Î¿¡ ³õ¿©Áöµµ·Ï
+                                % ì™¼ìª½ìœ¼ë¡œ ê°€ëŠ”(ìˆ˜í‰) ë„ë¡œì— ë†“ì—¬ì§€ë„ë¡
                                 vehicle(i).direction = '<';
                                 d = yrw(vehicle(i).spot_y)/7;
                                 random_d = fix(d*rand()+1);
@@ -706,13 +706,13 @@ for ret = 1:nr %10¹ø Àç½Ãµµ
                         elseif(vehicle(i).direction == '>')
                             r = rand();
                             if(r<0.5)
-                                % À§ÂÊÀ¸·Î °¡´Â µµ·Î¿¡ ³õ¿©Áöµµ·Ï
+                                % ìœ„ìª½ìœ¼ë¡œ ê°€ëŠ” ë„ë¡œì— ë†“ì—¬ì§€ë„ë¡
                                 vehicle(i).direction = '^';
                                 d = xrw(Num_vertical)/7;
                                 random_d = fix(d*rand()+1);
                                 vehicle(i).Location = [ ver_centerLine(1,Num_vertical)+(1.75)*(2*random_d - 1),hor_centerLine(1,vehicle(i).spot_y)+yrw(vehicle(i).spot_y)/2+2];
                             else
-                                % ¾Æ·¡ÂÊÀ¸·Î °¡´Â µµ·Î¿¡ ³õ¿©Áöµµ·Ï
+                                % ì•„ë˜ìª½ìœ¼ë¡œ ê°€ëŠ” ë„ë¡œì— ë†“ì—¬ì§€ë„ë¡
                                 vehicle(i).direction = 'v';
                                 d = xrw(Num_vertical)/7;
                                 random_d = fix(d*rand()+1);
@@ -726,7 +726,7 @@ for ret = 1:nr %10¹ø Àç½Ãµµ
                         if(vehicle(i).direction == '<')
                             r=rand();
                             if(r<0.3)
-                                % À§ÂÊÀ¸·Î °¡´Â µµ·Î¿¡ ³õ¿©Áöµµ·Ï
+                                % ìœ„ìª½ìœ¼ë¡œ ê°€ëŠ” ë„ë¡œì— ë†“ì—¬ì§€ë„ë¡
                                 vehicle(i).direction = '^';
                                 d = xrw(vehicle(i).spot_x)/7;
                                 random_d = fix(d*rand()+1);
@@ -735,7 +735,7 @@ for ret = 1:nr %10¹ø Àç½Ãµµ
                         elseif(vehicle(i).direction == '>')
                             r=rand();
                             if(r<0.3)
-                                % À§ÂÊÀ¸·Î °¡´Â µµ·Î¿¡ ³õ¿©Áöµµ·Ï
+                                % ìœ„ìª½ìœ¼ë¡œ ê°€ëŠ” ë„ë¡œì— ë†“ì—¬ì§€ë„ë¡
                                 vehicle(i).direction = '^';
                                 d = xrw(vehicle(i).spot_x)/7;
                                 random_d = fix(d*rand()+1);
@@ -744,13 +744,13 @@ for ret = 1:nr %10¹ø Àç½Ãµµ
                         elseif(vehicle(i).direction == 'v')
                             r = rand();
                             if(r<0.5)
-                                % ¿ŞÂÊÀ¸·Î °¡´Â(¼öÆò) µµ·Î¿¡ ³õ¿©Áöµµ·Ï
+                                % ì™¼ìª½ìœ¼ë¡œ ê°€ëŠ”(ìˆ˜í‰) ë„ë¡œì— ë†“ì—¬ì§€ë„ë¡
                                 vehicle(i).direction = '<';
                                 d = yrw(1)/7;
                                 random_d = fix(d*rand()+1);
                                 vehicle(i).Location = [ver_centerLine(1,vehicle(i).spot_x)-xrw(1,vehicle(i).spot_x)/2-2,hor_centerLine(1,1)+(1.75)*(2*random_d - 1)];
                             else
-                                % ¿À¸¥ÂÊÀ¸·Î °¡´Â µµ·Î¿¡ ³õ¿©Áöµµ·Ï
+                                % ì˜¤ë¥¸ìª½ìœ¼ë¡œ ê°€ëŠ” ë„ë¡œì— ë†“ì—¬ì§€ë„ë¡
                                 vehicle(i).direction = '>';
                                 d = yrw(1)/7;
                                 random_d = fix(d*rand()+1);
@@ -764,7 +764,7 @@ for ret = 1:nr %10¹ø Àç½Ãµµ
                         if(vehicle(i).direction == '<')
                             r = rand();
                             if(r<0.3)
-                                % ¾Æ·¡ÂÊÀ¸·Î °¡´Â µµ·Î¿¡ ³õ¿©Áöµµ·Ï
+                                % ì•„ë˜ìª½ìœ¼ë¡œ ê°€ëŠ” ë„ë¡œì— ë†“ì—¬ì§€ë„ë¡
                                 vehicle(i).direction = 'v';
                                 d = xrw(vehicle(i).spot_x)/7;
                                 random_d = fix(d*rand()+1);
@@ -774,7 +774,7 @@ for ret = 1:nr %10¹ø Àç½Ãµµ
                         elseif(vehicle(i).direction == '>')
                             r = rand();
                             if(r<0.3)
-                                % ¾Æ·¡ÂÊÀ¸·Î °¡´Â µµ·Î¿¡ ³õ¿©Áöµµ·Ï
+                                % ì•„ë˜ìª½ìœ¼ë¡œ ê°€ëŠ” ë„ë¡œì— ë†“ì—¬ì§€ë„ë¡
                                 vehicle(i).direction = 'v';
                                 d = xrw(vehicle(i).spot_x)/7;
                                 random_d = fix(d*rand()+1);
@@ -783,13 +783,13 @@ for ret = 1:nr %10¹ø Àç½Ãµµ
                         elseif(vehicle(i).direction == '^')
                             r = rand();
                             if(r<0.5)
-                                % ¿ŞÂÊÀ¸·Î °¡´Â(¼öÆò) µµ·Î¿¡ ³õ¿©Áöµµ·Ï
+                                % ì™¼ìª½ìœ¼ë¡œ ê°€ëŠ”(ìˆ˜í‰) ë„ë¡œì— ë†“ì—¬ì§€ë„ë¡
                                 vehicle(i).direction = '<';
                                 d = yrw(Num_horizontal)/7;
                                 random_d = fix(d*rand()+1);
                                 vehicle(i).Location = [ver_centerLine(1,vehicle(i).spot_x)-xrw(1,vehicle(i).spot_x)/2-2,hor_centerLine(1,Num_horizontal)+(1.75)*(2*random_d - 1)];
                             else
-                                % ¿À¸¥ÂÊÀ¸·Î °¡´Â µµ·Î¿¡ ³õ¿©Áöµµ·Ï
+                                % ì˜¤ë¥¸ìª½ìœ¼ë¡œ ê°€ëŠ” ë„ë¡œì— ë†“ì—¬ì§€ë„ë¡
                                 vehicle(i).direction = '>';
                                 d = yrw(Num_horizontal)/7;
                                 random_d = fix(d*rand()+1);
@@ -799,17 +799,17 @@ for ret = 1:nr %10¹ø Àç½Ãµµ
                         else
                         end
 
-                    else %% ³»ºÎ ±³Â÷·Î
+                    else %% ë‚´ë¶€ êµì°¨ë¡œ
                         if(vehicle(i).direction == '<')
                             r= rand();
                             if(r<0.3)
-                                % À§ÂÊÀ¸·Î °¡´Â µµ·Î¿¡ ³õ¿©Áöµµ·Ï
+                                % ìœ„ìª½ìœ¼ë¡œ ê°€ëŠ” ë„ë¡œì— ë†“ì—¬ì§€ë„ë¡
                                 vehicle(i).direction = '^';
                                 d = xrw(vehicle(i).spot_x)/7;
                                 random_d = fix(d*rand()+1);
                                 vehicle(i).Location = [ ver_centerLine(1,vehicle(i).spot_x)+(1.75)*(2*random_d - 1),hor_centerLine(1,vehicle(i).spot_y)+yrw(vehicle(i).spot_y)/2+2];
                             elseif((0.3<=r)&&(r<0.6))
-                                % ¾Æ·¡ÂÊÀ¸·Î °¡´Â µµ·Î¿¡ ³õ¿©Áöµµ·Ï
+                                % ì•„ë˜ìª½ìœ¼ë¡œ ê°€ëŠ” ë„ë¡œì— ë†“ì—¬ì§€ë„ë¡
                                 vehicle(i).direction = 'v';
                                 d = xrw(vehicle(i).spot_x)/7;
                                 random_d = fix(d*rand()+1);
@@ -819,13 +819,13 @@ for ret = 1:nr %10¹ø Àç½Ãµµ
                         elseif(vehicle(i).direction == '>')
                             r= rand();
                             if(r<0.3)
-                                % À§ÂÊÀ¸·Î °¡´Â µµ·Î¿¡ ³õ¿©Áöµµ·Ï
+                                % ìœ„ìª½ìœ¼ë¡œ ê°€ëŠ” ë„ë¡œì— ë†“ì—¬ì§€ë„ë¡
                                 vehicle(i).direction = '^';
                                 d = xrw(vehicle(i).spot_x)/7;
                                 random_d = fix(d*rand()+1);
                                 vehicle(i).Location = [ ver_centerLine(1,vehicle(i).spot_x)+(1.75)*(2*random_d - 1),hor_centerLine(1,vehicle(i).spot_y)+yrw(vehicle(i).spot_y)/2+2];
                             elseif((0.3<=r)&&(r<0.6))
-                                % ¾Æ·¡ÂÊÀ¸·Î °¡´Â µµ·Î¿¡ ³õ¿©Áöµµ·Ï
+                                % ì•„ë˜ìª½ìœ¼ë¡œ ê°€ëŠ” ë„ë¡œì— ë†“ì—¬ì§€ë„ë¡
                                 vehicle(i).direction = 'v';
                                 d = xrw(vehicle(i).spot_x)/7;
                                 random_d = fix(d*rand()+1);
@@ -834,13 +834,13 @@ for ret = 1:nr %10¹ø Àç½Ãµµ
                         elseif(vehicle(i).direction == '^')
                             r= rand();
                             if(r<0.3)
-                                % ¿ŞÂÊÀ¸·Î °¡´Â µµ·Î¿¡ ³õ¿©Áöµµ·Ï
+                                % ì™¼ìª½ìœ¼ë¡œ ê°€ëŠ” ë„ë¡œì— ë†“ì—¬ì§€ë„ë¡
                                 vehicle(i).direction = '<';
                                 d = yrw(vehicle(i).spot_y)/7;
                                 random_d = fix(d*rand()+1);
                                 vehicle(i).Location = [ ver_centerLine(1,vehicle(i).spot_x)-xrw(vehicle(i).spot_x)/2-2, hor_centerLine(1,vehicle(i).spot_y)+(1.75)*(2*random_d - 1),];
                             elseif((0.3<=r)&&(r<0.6))
-                                % ¿À¸¥ÂÊÀ¸·Î °¡´Â µµ·Î¿¡ ³õ¿©Áöµµ·Ï
+                                % ì˜¤ë¥¸ìª½ìœ¼ë¡œ ê°€ëŠ” ë„ë¡œì— ë†“ì—¬ì§€ë„ë¡
                                 vehicle(i).direction = '>';
                                 d = yrw(vehicle(i).spot_y)/7;
                                 random_d = fix(d*rand()+1);
@@ -849,13 +849,13 @@ for ret = 1:nr %10¹ø Àç½Ãµµ
                         elseif(vehicle(i).direction == 'v')
                             r= rand();
                             if(r<0.3)
-                                % ¿ŞÂÊÀ¸·Î °¡´Â µµ·Î¿¡ ³õ¿©Áöµµ·Ï
+                                % ì™¼ìª½ìœ¼ë¡œ ê°€ëŠ” ë„ë¡œì— ë†“ì—¬ì§€ë„ë¡
                                 vehicle(i).direction = '<';
                                 d = yrw(vehicle(i).spot_y)/7;
                                 random_d = fix(d*rand()+1);
                                 vehicle(i).Location = [ ver_centerLine(1,vehicle(i).spot_x)-xrw(vehicle(i).spot_x)/2-2, hor_centerLine(1,vehicle(i).spot_y)+(1.75)*(2*random_d - 1),];
                             elseif((0.3<=r)&&(r<0.6))
-                                % ¿À¸¥ÂÊÀ¸·Î °¡´Â µµ·Î¿¡ ³õ¿©Áöµµ·Ï
+                                % ì˜¤ë¥¸ìª½ìœ¼ë¡œ ê°€ëŠ” ë„ë¡œì— ë†“ì—¬ì§€ë„ë¡
                                 vehicle(i).direction = '>';
                                 d = yrw(vehicle(i).spot_y)/7;
                                 random_d = fix(d*rand()+1);
@@ -874,19 +874,19 @@ for ret = 1:nr %10¹ø Àç½Ãµµ
 
                 if vehicle(i).ID == source
                     set(vehicle(source).imageCar, 'XData',vehicle(source).Location(1), 'YData',vehicle(source).Location(2) , 'Color','r', ...
-                        'Marker',vehicle(source).direction, 'MarkerSize',20,'LineWidth',6) % ±×¸®±â    
+                        'Marker',vehicle(source).direction, 'MarkerSize',20,'LineWidth',6) % ê·¸ë¦¬ê¸°    
                     set(vehicle(source).t, 'Position', [vehicle(source).Location(1)+5 vehicle(source).Location(2)]);
                     set(vehicle(source).s, 'Position', [vehicle(source).Location(1)+5 vehicle(source).Location(2)+8]);
 
                 elseif vehicle(i).ID == destination
                     set(vehicle(destination).imageCar, 'XData',vehicle(destination).Location(1), 'YData',vehicle(destination).Location(2) , 'Color','g', ...
-                        'Marker',vehicle(destination).direction, 'MarkerSize',20,'LineWidth',6) % ±×¸®±â 
+                        'Marker',vehicle(destination).direction, 'MarkerSize',20,'LineWidth',6) % ê·¸ë¦¬ê¸° 
                     set(vehicle(destination).t, 'Position', [vehicle(destination).Location(1)+5 vehicle(destination).Location(2)]);
                     set(vehicle(destination).d, 'Position', [vehicle(destination).Location(1)+5 vehicle(destination).Location(2)+8]);
 
                 else
                      set(vehicle(i).imageCar, 'XData',vehicle(i).Location(1), 'YData',vehicle(i).Location(2) , 'Color','b', ...
-                        'Marker',vehicle(i).direction, 'MarkerSize',7,'LineWidth',0.5) % ±×¸®±â
+                        'Marker',vehicle(i).direction, 'MarkerSize',7,'LineWidth',0.5) % ê·¸ë¦¬ê¸°
                      set(vehicle(i).t, 'Position', [vehicle(i).Location(1)+5 vehicle(i).Location(2)]);
 
                 end
@@ -897,30 +897,30 @@ for ret = 1:nr %10¹ø Àç½Ãµµ
 
             end
 
-            %%%%%%%%%%%%%% AODV °ü·Ã %%%%%%%%%%%
+            %%%%%%%%%%%%%% AODV ê´€ë ¨ %%%%%%%%%%%
 
             %%%%%%%%%%%%%% RREQ %%%%%%%%%%%%%%%%%%%
 
             if(rreq_mode == 1)
                 if(time == 1)
                     set(handles.State_Message,'String','RREQ Broadcasting for searching Destination Vehicle node');
-                    for i=1:Num_vehicle+RSU_NUM
+                    for i=1:Num_vehicle+
                         for j=1:Num_horizontal
                             for k=1:Num_vertical
                                 if ((distance(source,i)<d1) && (i~=destination))
                                     if ((abs(vehicle(source).Location(1)-vehicle(i).Location(1))<7) && (abs(vehicle(source).Location(1)-spot(j,k).Xpoint)<5) && (abs(vehicle(i).Location(1)-spot(j,k).Xpoint)<5)) || ((abs(vehicle(source).Location(2)-vehicle(i).Location(2))<7) && (abs(vehicle(source).Location(2)-spot(j,k).Ypoint)<5) && (abs(vehicle(i).Location(2)-spot(j,k).Ypoint)<5))                              
                                         line_bool(source,i) = 1;
-                                        line_bool(i,source) = line_bool(source,i);  % Á÷¼±ÀÌ Áßº¹µÇÁö ¾Ê°Ô ÇÏ±âÀ§ÇØ
+                                        line_bool(i,source) = line_bool(source,i);  % ì§ì„ ì´ ì¤‘ë³µë˜ì§€ ì•Šê²Œ í•˜ê¸°ìœ„í•´
                                         %a = plot(linspace(vehicle(source).Location(1),vehicle(i).Location(1),floor(distance(source,i))),linspace(vehicle(source).Location(2),vehicle(i).Location(2),floor(distance(source,i))),'--b');
                                         RREQ_Line_count = RREQ_Line_count+1;
                                         RREQ(RREQ_Line_count).draw = line('XData',[vehicle(source).Location(1),vehicle(i).Location(1)],'YData',[vehicle(source).Location(2),vehicle(i).Location(2)],'LineStyle','-.','LineWidth',0.5,'Color','b');
                                         RREQ(RREQ_Line_count).source = source;
                                         RREQ(RREQ_Line_count).destination = i;
 
-                                        timev(1).send(source) = vehicle(source).ID; % time = 1ÀÏ¶§ RREP º¸³»´Â Â÷´Â source
-                                        timev(1).reply(i) = vehicle(i).ID;          % time = 1ÀÏ¶§ RREP ¹Ş´Â Â÷´Â i
-                                        info(source,i,1) = randi([1 10000]);          % info(º¸³»´ÂÂ÷, ¹Ş´ÂÂ÷, time) , ½ÃÄö½º ³Ñ¹ö
-                                        if i==destination                           % 1 hop ¸¸¿¡ ¸ñÀûÁö¿¡ µµ´ŞÇßÀ» ¶§
+                                        timev(1).send(source) = vehicle(source).ID; % time = 1ì¼ë•Œ RREP ë³´ë‚´ëŠ” ì°¨ëŠ” source
+                                        timev(1).reply(i) = vehicle(i).ID;          % time = 1ì¼ë•Œ RREP ë°›ëŠ” ì°¨ëŠ” i
+                                        info(source,i,1) = randi([1 10000]);          % info(ë³´ë‚´ëŠ”ì°¨, ë°›ëŠ”ì°¨, time) , ì‹œí€€ìŠ¤ ë„˜ë²„
+                                        if i==destination                           % 1 hop ë§Œì— ëª©ì ì§€ì— ë„ë‹¬í–ˆì„ ë•Œ
                                             timev(1).flag = 1;
                                             RREQ_Line_count = RREQ_Line_count+1;
                                             RREQ(RREQ_Line_count).draw = line('XData',[vehicle(source).Location(1),vehicle(i).Location(1)],'YData',[vehicle(source).Location(2),vehicle(i).Location(2)],'LineStyle','-','LineWidth',0.5,'Color','b');
@@ -932,17 +932,17 @@ for ret = 1:nr %10¹ø Àç½Ãµµ
 
                                     else if ((distance(source,i)<d2) && (i~=destination))
                                             line_bool(source,i) = 1;
-                                            line_bool(i,source) = line_bool(source,i);  % Á÷¼±ÀÌ Áßº¹µÇÁö ¾Ê°Ô ÇÏ±âÀ§ÇØ
+                                            line_bool(i,source) = line_bool(source,i);  % ì§ì„ ì´ ì¤‘ë³µë˜ì§€ ì•Šê²Œ í•˜ê¸°ìœ„í•´
                                             %a = plot(linspace(vehicle(source).Location(1),vehicle(i).Location(1),floor(distance(source,i))),linspace(vehicle(source).Location(2),vehicle(i).Location(2),floor(distance(source,i))),'--b');
                                             RREQ_Line_count = RREQ_Line_count+1;
                                             RREQ(RREQ_Line_count).draw = line('XData',[vehicle(source).Location(1),vehicle(i).Location(1)],'YData',[vehicle(source).Location(2),vehicle(i).Location(2)],'LineStyle','-.','LineWidth',0.5,'Color','c');
                                             RREQ(RREQ_Line_count).source = source;
                                             RREQ(RREQ_Line_count).destination = i;
 
-                                            timev(1).send(source) = vehicle(source).ID; % time = 1ÀÏ¶§ RREP º¸³»´Â Â÷´Â source
-                                            timev(1).reply(i) = vehicle(i).ID;          % time = 1ÀÏ¶§ RREP ¹Ş´Â Â÷´Â i
-                                            info(source,i,1) = randi([1 10000]);          % info(º¸³»´ÂÂ÷, ¹Ş´ÂÂ÷, time) , ½ÃÄö½º ³Ñ¹ö
-                                            if i==destination                           % 1 hop ¸¸¿¡ ¸ñÀûÁö¿¡ µµ´ŞÇßÀ» ¶§
+                                            timev(1).send(source) = vehicle(source).ID; % time = 1ì¼ë•Œ RREP ë³´ë‚´ëŠ” ì°¨ëŠ” source
+                                            timev(1).reply(i) = vehicle(i).ID;          % time = 1ì¼ë•Œ RREP ë°›ëŠ” ì°¨ëŠ” i
+                                            info(source,i,1) = randi([1 10000]);          % info(ë³´ë‚´ëŠ”ì°¨, ë°›ëŠ”ì°¨, time) , ì‹œí€€ìŠ¤ ë„˜ë²„
+                                            if i==destination                           % 1 hop ë§Œì— ëª©ì ì§€ì— ë„ë‹¬í–ˆì„ ë•Œ
                                                 timev(1).flag = 1;
                                                 RREQ_Line_count = RREQ_Line_count+1;
                                                 RREQ(RREQ_Line_count).draw = line('XData',[vehicle(source).Location(1),vehicle(i).Location(1)],'YData',[vehicle(source).Location(2),vehicle(i).Location(2)],'LineStyle','-','LineWidth',0.5,'Color','c');
@@ -962,11 +962,11 @@ for ret = 1:nr %10¹ø Àç½Ãµµ
 
                 else
                    for i=1:Num_vehicle+RSU_NUM   
-                       for p=1:Num_vehicle+RSU_NUM
+                       for p=1:Num_vehicle
                            for j=1:Num_horizontal
                                for k=1:Num_vertical
-                                        if (timev(time-1).reply(i) ~= 0 )          % ÀÌÀü Å¸ÀÓ¿¡ RREP¸¦ ¹ŞÀº ³ëµåÀÌ°í ¸ñÀûÁö ³ëµå°¡ ¾Æ´Ï¸é
-                                                                                                           % ¸ñÀûÁö ³ëµå¿¡¼­ ´õ »¸¾îÁ® ³ª°¡´Â °ÍÀ» ¹æÁö
+                                        if (timev(time-1).reply(i) ~= 0 )          % ì´ì „ íƒ€ì„ì— RREPë¥¼ ë°›ì€ ë…¸ë“œì´ê³  ëª©ì ì§€ ë…¸ë“œê°€ ì•„ë‹ˆë©´
+                                                                                                           % ëª©ì ì§€ ë…¸ë“œì—ì„œ ë” ë»—ì–´ì ¸ ë‚˜ê°€ëŠ” ê²ƒì„ ë°©ì§€
 
                                             if  ( (distance(i,p)<d1) && (line_bool(i,p) ~= 1))
                                                 if ((abs(vehicle(i).Location(1)-vehicle(p).Location(1))<7) && (abs(vehicle(i).Location(1)-spot(j,k).Xpoint)<5) && (abs(vehicle(p).Location(1)-spot(j,k).Xpoint)<5)) || ((abs(vehicle(i).Location(2)-vehicle(p).Location(2))<7) && (abs(vehicle(i).Location(2)-spot(j,k).Ypoint)<5) && (abs(vehicle(p).Location(2)-spot(j,k).Ypoint)<5))
@@ -976,33 +976,33 @@ for ret = 1:nr %10¹ø Àç½Ãµµ
                                                     RREQ(RREQ_Line_count).destination = p;
 
                                                     line_bool(i,p) = 1;
-                                                    line_bool(p,i) = line_bool(i,p);  % Á÷¼±ÀÌ Áßº¹µÇÁö ¾Ê°Ô ÇÏ±âÀ§ÇØ
-                                                    timev(time).send(i) = timev(time-1).reply(i);  % time = 2¿¡ RREP º¸³»´Â Â÷´Â i
-                                                    timev(time).reply(p) = vehicle(p).ID;     % time = 2¿¡ RREP ¹Ş´Â Â÷´Â j
-                                                    info(i,p,time) = randi([1 10000]);   %seq# °í·Á, i = send, j = reply, t = time   
+                                                    line_bool(p,i) = line_bool(i,p);  % ì§ì„ ì´ ì¤‘ë³µë˜ì§€ ì•Šê²Œ í•˜ê¸°ìœ„í•´
+                                                    timev(time).send(i) = timev(time-1).reply(i);  % time = 2ì— RREP ë³´ë‚´ëŠ” ì°¨ëŠ” i
+                                                    timev(time).reply(p) = vehicle(p).ID;     % time = 2ì— RREP ë°›ëŠ” ì°¨ëŠ” j
+                                                    info(i,p,time) = randi([1 10000]);   %seq# ê³ ë ¤, i = send, j = reply, t = time   
 
                                                     if timev(time).reply(p)==destination
-                                                        timev(time).flag = 1;                           % flag°¡ 1ÀÌ¸é ¸ñÀûÁö¿¡ µµÂøÇß´Ù´Â ÀÇ¹Ì
-                                                        first_rreq_seq_mode = first_rreq_seq_mode+1;    % Ã¹¹øÂ° rreq°¡ µµÂøÇßÀ» ¶§
+                                                        timev(time).flag = 1;                           % flagê°€ 1ì´ë©´ ëª©ì ì§€ì— ë„ì°©í–ˆë‹¤ëŠ” ì˜ë¯¸
+                                                        first_rreq_seq_mode = first_rreq_seq_mode+1;    % ì²«ë²ˆì§¸ rreqê°€ ë„ì°©í–ˆì„ ë•Œ
                                                         RREQ_Line_count = RREQ_Line_count+1;
                                                         RREQ(RREQ_Line_count).draw = line('XData',[vehicle(i).Location(1),vehicle(p).Location(1)],'YData',[vehicle(i).Location(2),vehicle(p).Location(2)],'LineStyle','-','LineWidth',0.5,'Color','b');
                                                         RREQ(RREQ_Line_count).source = i;
                                                         RREQ(RREQ_Line_count).destination = p;
 
                                                         if first_rreq_seq_mode == 1
-                                                            fp = time;      % find point : destination µµ´ŞÇÑ ½ÃÁ¡
-                                                            dfp = time;     % µ¥ÀÌÅÍ ÆĞÅ¶ Àü¼Û °æ·Î Ãâ·ÂÇÏ·Á°í
-                                                            tp = time +3;   %              rreq ½ÃÀÛ ÁöÁ¡
+                                                            fp = time;      % find point : destination ë„ë‹¬í•œ ì‹œì 
+                                                            dfp = time;     % ë°ì´í„° íŒ¨í‚· ì „ì†¡ ê²½ë¡œ ì¶œë ¥í•˜ë ¤ê³ 
+                                                            tp = time +3;   %              rreq ì‹œì‘ ì§€ì 
 
-                                                            hop_count = time;   % È©Ä«¿îÆ® ÀúÀå 
+                                                            hop_count = time;   % í™‰ì¹´ìš´íŠ¸ ì €ì¥ 
 
-                                                            data = zeros(fp);   % data packet º¸³»±â À§ÇÑ ±æ ÀúÀå ¹è¿­
+                                                            data = zeros(fp);   % data packet ë³´ë‚´ê¸° ìœ„í•œ ê¸¸ ì €ì¥ ë°°ì—´
 
                                                         end
                                                     end
                                                     if time == tp
-                                                        rreq_mode = 0; % rreq_mode ²ô±â
-                                                        rrep_mode = 1; % Ã¹¹øÂ° rreq¹ŞÀº ÀÌÈÄ·Î 3 hop ±â´Ù¸° ´ÙÀ½ rrep ¸ğµå ½ÃÀÛ
+                                                        rreq_mode = 0; % rreq_mode ë„ê¸°
+                                                        rrep_mode = 1; % ì²«ë²ˆì§¸ rreqë°›ì€ ì´í›„ë¡œ 3 hop ê¸°ë‹¤ë¦° ë‹¤ìŒ rrep ëª¨ë“œ ì‹œì‘
                                                     end
 
 
@@ -1013,33 +1013,33 @@ for ret = 1:nr %10¹ø Àç½Ãµµ
                                                     RREQ(RREQ_Line_count).destination = p;
 
                                                     line_bool(i,p) = 1;
-                                                    line_bool(p,i) = line_bool(i,p);  % Á÷¼±ÀÌ Áßº¹µÇÁö ¾Ê°Ô ÇÏ±âÀ§ÇØ
-                                                    timev(time).send(i) = timev(time-1).reply(i);  % time = 2¿¡ RREP º¸³»´Â Â÷´Â i
-                                                    timev(time).reply(p) = vehicle(p).ID;     % time = 2¿¡ RREP ¹Ş´Â Â÷´Â j
-                                                    info(i,p,time) = randi([1 10000]);   %seq# °í·Á, i = send, j = reply, t = time   
+                                                    line_bool(p,i) = line_bool(i,p);  % ì§ì„ ì´ ì¤‘ë³µë˜ì§€ ì•Šê²Œ í•˜ê¸°ìœ„í•´
+                                                    timev(time).send(i) = timev(time-1).reply(i);  % time = 2ì— RREP ë³´ë‚´ëŠ” ì°¨ëŠ” i
+                                                    timev(time).reply(p) = vehicle(p).ID;     % time = 2ì— RREP ë°›ëŠ” ì°¨ëŠ” j
+                                                    info(i,p,time) = randi([1 10000]);   %seq# ê³ ë ¤, i = send, j = reply, t = time   
 
                                                     if timev(time).reply(p)==destination
-                                                        timev(time).flag = 1;                           % flag°¡ 1ÀÌ¸é ¸ñÀûÁö¿¡ µµÂøÇß´Ù´Â ÀÇ¹Ì
-                                                        first_rreq_seq_mode = first_rreq_seq_mode+1;    % Ã¹¹øÂ° rreq°¡ µµÂøÇßÀ» ¶§
+                                                        timev(time).flag = 1;                           % flagê°€ 1ì´ë©´ ëª©ì ì§€ì— ë„ì°©í–ˆë‹¤ëŠ” ì˜ë¯¸
+                                                        first_rreq_seq_mode = first_rreq_seq_mode+1;    % ì²«ë²ˆì§¸ rreqê°€ ë„ì°©í–ˆì„ ë•Œ
                                                         RREQ_Line_count = RREQ_Line_count+1;
                                                         RREQ(RREQ_Line_count).draw = line('XData',[vehicle(i).Location(1),vehicle(p).Location(1)],'YData',[vehicle(i).Location(2),vehicle(p).Location(2)],'LineStyle','-','LineWidth',0.5,'Color','c');
                                                         RREQ(RREQ_Line_count).source = i;
                                                         RREQ(RREQ_Line_count).destination = p;
 
                                                         if first_rreq_seq_mode == 1
-                                                            fp = time;      % find point : destination µµ´ŞÇÑ ½ÃÁ¡
-                                                            dfp = time;     % µ¥ÀÌÅÍ ÆĞÅ¶ Àü¼Û °æ·Î Ãâ·ÂÇÏ·Á°í
-                                                            tp = time +3;   %              rreq ½ÃÀÛ ÁöÁ¡
+                                                            fp = time;      % find point : destination ë„ë‹¬í•œ ì‹œì 
+                                                            dfp = time;     % ë°ì´í„° íŒ¨í‚· ì „ì†¡ ê²½ë¡œ ì¶œë ¥í•˜ë ¤ê³ 
+                                                            tp = time +3;   %              rreq ì‹œì‘ ì§€ì 
 
-                                                            hop_count = time;   % È©Ä«¿îÆ® ÀúÀå 
+                                                            hop_count = time;   % í™‰ì¹´ìš´íŠ¸ ì €ì¥ 
 
-                                                            data = zeros(fp);   % data packet º¸³»±â À§ÇÑ ±æ ÀúÀå ¹è¿­
+                                                            data = zeros(fp);   % data packet ë³´ë‚´ê¸° ìœ„í•œ ê¸¸ ì €ì¥ ë°°ì—´
 
                                                         end
                                                     end
                                                     if time == tp
-                                                        rreq_mode = 0; % rreq_mode ²ô±â
-                                                        rrep_mode = 1; % Ã¹¹øÂ° rreq¹ŞÀº ÀÌÈÄ·Î 3 hop ±â´Ù¸° ´ÙÀ½ rrep ¸ğµå ½ÃÀÛ
+                                                        rreq_mode = 0; % rreq_mode ë„ê¸°
+                                                        rrep_mode = 1; % ì²«ë²ˆì§¸ rreqë°›ì€ ì´í›„ë¡œ 3 hop ê¸°ë‹¤ë¦° ë‹¤ìŒ rrep ëª¨ë“œ ì‹œì‘
                                                     end
 
                                                  end
@@ -1059,13 +1059,13 @@ for ret = 1:nr %10¹ø Àç½Ãµµ
 
                 if time == tp
 
-                    for i=1:RREQ_Line_count     % RREP ¸ğµå ½ÃÀÛµÇ¸é ÀÌÀüÀÇ ºê·ÎµåÄ³½ºÆÃ ¼±µé Áö¿ì±â
+                    for i=1:RREQ_Line_count     % RREP ëª¨ë“œ ì‹œì‘ë˜ë©´ ì´ì „ì˜ ë¸Œë¡œë“œìºìŠ¤íŒ… ì„ ë“¤ ì§€ìš°ê¸°
                         set(RREQ(i).draw,'Visible','off');
                     end
 
                  
                     set(handles.State_Message,'String','Route path is selected');
-                    for i=1:Num_vehicle+RSU_NUM
+                    for i=1:Num_vehicle
                         if info(i,destination,fp) > max1
                             max1 = info(i,destination,fp);
                             rp1 = i;
@@ -1102,12 +1102,12 @@ for ret = 1:nr %10¹ø Àç½Ãµµ
                 else
                     set(handles.State_Message,'String','RREP is transfered to Source Vehicle node');
                     fp = fp -1;
-                    for i=1:Num_vehicle+RSU_NUM
+                    for i=1:Num_vehicle
                         if info(i,rp1,fp) > max2
                              max2 = info(i,rp1,fp);
                              rp2 = i;
                              if fp == 1
-                                toc; %¼öÇà½Ã°£ ÃøÁ¤
+                                toc; %ìˆ˜í–‰ì‹œê°„ ì¸¡ì •
                                 set(handles.text131,'String',round(toc));
                                 set(handles.text128,'String',hop_count);
 
@@ -1163,7 +1163,7 @@ for ret = 1:nr %10¹ø Àç½Ãµµ
                         DATA(DATA_Line_count).source = data(i);
                         DATA(DATA_Line_count).destination = destination;
                         
-                        %%%%%%%%%%%%%%%%%%% °æ·ÎÃâ·Â %%%%%%%%%%%%%%%
+                        %%%%%%%%%%%%%%%%%%% ê²½ë¡œì¶œë ¥ %%%%%%%%%%%%%%%
                         for x=1:dfp
                             if x==1
                                 texta = num2str(source);
@@ -1203,19 +1203,19 @@ for ret = 1:nr %10¹ø Àç½Ãµµ
             end
             %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-            for i=1:RREQ_Line_count     % Â÷ À§Ä¡¿¡ ¸Â°Ô ºê·ÎµåÄ³½ºÆÃ ¼±ÀÇ À§Ä¡µµ °°ÀÌ ¹Ù²ñ // RREQ
+            for i=1:RREQ_Line_count     % ì°¨ ìœ„ì¹˜ì— ë§ê²Œ ë¸Œë¡œë“œìºìŠ¤íŒ… ì„ ì˜ ìœ„ì¹˜ë„ ê°™ì´ ë°”ë€œ // RREQ
                 ss = RREQ(i).source;
                 dd = RREQ(i).destination;
                 set(RREQ(i).draw,'Xdata',[vehicle(ss).Location(1),vehicle(dd).Location(1)],'Ydata',[vehicle(ss).Location(2),vehicle(dd).Location(2)]);
             end
 
-            for i=1:RREP_Line_count     % Â÷ À§Ä¡¿¡ ¸Â°Ô ºê·ÎµåÄ³½ºÆÃ ¼±ÀÇ À§Ä¡µµ °°ÀÌ ¹Ù²ñ // RREP
+            for i=1:RREP_Line_count     % ì°¨ ìœ„ì¹˜ì— ë§ê²Œ ë¸Œë¡œë“œìºìŠ¤íŒ… ì„ ì˜ ìœ„ì¹˜ë„ ê°™ì´ ë°”ë€œ // RREP
                 ss = RREP(i).source;
                 dd = RREP(i).destination;
                 set(RREP(i).draw,'Xdata',[vehicle(ss).Location(1),vehicle(dd).Location(1)],'Ydata',[vehicle(ss).Location(2),vehicle(dd).Location(2)]);
             end
 
-            for i=1:DATA_Line_count     % Â÷ À§Ä¡¿¡ ¸Â°Ô ºê·ÎµåÄ³½ºÆÃ ¼±ÀÇ À§Ä¡µµ °°ÀÌ ¹Ù²ñ // DATA
+            for i=1:DATA_Line_count     % ì°¨ ìœ„ì¹˜ì— ë§ê²Œ ë¸Œë¡œë“œìºìŠ¤íŒ… ì„ ì˜ ìœ„ì¹˜ë„ ê°™ì´ ë°”ë€œ // DATA
                 ss = DATA(i).source;
                 dd = DATA(i).destination;
                 set(DATA(i).draw,'Xdata',[vehicle(ss).Location(1),vehicle(dd).Location(1)],'Ydata',[vehicle(ss).Location(2),vehicle(dd).Location(2)]);
@@ -1224,17 +1224,17 @@ for ret = 1:nr %10¹ø Àç½Ãµµ
             pause(0.05);
     end
     msgbox('The path to the destination is not found until the given retry timer expiration','Error','error');
-    for i=1:RREQ_Line_count     % RREP ¸ğµå ½ÃÀÛµÇ¸é ÀÌÀüÀÇ ºê·ÎµåÄ³½ºÆÃ ¼±µé Áö¿ì±â
+    for i=1:RREQ_Line_count     % RREP ëª¨ë“œ ì‹œì‘ë˜ë©´ ì´ì „ì˜ ë¸Œë¡œë“œìºìŠ¤íŒ… ì„ ë“¤ ì§€ìš°ê¸°
             set(RREQ(i).draw,'Visible','off');
             RREQ(i).source = 0;
             RREQ(i).destination = 0;
   
     end
      RREQ_Line_count = 0;
-    info = zeros(Num_vehicle+RSU_NUM,Num_vehicle+RSU_NUM,Num_vehicle+RSU_NUM);
-    line_bool = zeros(Num_vehicle+RSU_NUM, Num_vehicle+RSU_NUM);
+    info = zeros(Num_vehicle,Num_vehicle,Num_vehicle);
+    line_bool = zeros(Num_vehicle, Num_vehicle);
     for h=1:MAX_TIME
-         for g=1:1:Num_vehicle+RSU_NUM
+         for g=1:1:Num_vehicle
              timev(h).flag(g) = 0;
              timev(h).reply(g) = 0;
              timev(h).send(g) = 0;
@@ -1289,13 +1289,13 @@ global vehicle
 global MAX_TIME
 global distance
 
-timev = repmat(struct('send',1:Num_vehicle+RSU_NUM,'reply',1:Num_vehicle+RSU_NUM,'flag',0),1,Num_vehicle+RSU_NUM);
-info = zeros(Num_vehicle+RSU_NUM,Num_vehicle+RSU_NUM,Num_vehicle+RSU_NUM);
-line_bool = zeros(Num_vehicle+RSU_NUM, Num_vehicle+RSU_NUM);
+timev = repmat(struct('send',1:Num_vehicle,'reply',1:Num_vehicle,'flag',0),1,Num_vehicle);
+info = zeros(Num_vehicle,Num_vehicle,Num_vehicle);
+line_bool = zeros(Num_vehicle, Num_vehicle);
 xx = 1;
 
-for i=1:Num_vehicle+RSU_NUM  
-    for j=1:1:Num_vehicle+RSU_NUM
+for i=1:Num_vehicle  
+    for j=1:1:Num_vehicle
         timev(i).send(j) = 0;
         timev(i).send(j) = 0;
     end
