@@ -1,4 +1,5 @@
 function varargout = road(varargin)
+%
 % ROAD MATLAB code for road.fig
 %      ROAD, by itself, creates a new ROAD or raises the existing
 %      singleton*.
@@ -219,16 +220,19 @@ end
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-
 global Num_vehicle
 global Vehicle_Max_speed
 global Vehicle_Min_speed
 global vehicle
 global MAX_TIME
+global RSU_NUM
+global RSU_POSITION
 %%%%%%%%%%%%%%%%%%%%%%%%%% 회전 Spot 그리기 %%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+RSU_NUM=Num_horizontal*Num_vertical;
 spot = struct();
 spot_count = 1;
+RSU_POSITION = zeros(RSU_NUM,2); %RSU의 갯수 * 2의배열 선언
 
 for i=1:Num_horizontal
     for j=1:Num_vertical
@@ -246,19 +250,54 @@ for i=1:Num_horizontal
         
         hold on;
         plot(x, y, 'r*','LineWidth',2);
-        
+        RSU_POSITION(spot_count,1)=x;%RSU의 x좌표 저장
+        RSU_POSITION(spot_count,2)=y;%RSU의 y좌표 저장
         spot(i,j).Xpoint = x; % 해당 spot의 x좌표
         spot(i,j).Ypoint = y; % 해당 spot의 y좌표
         spot_count = spot_count + 1;   % spot 갯수 1 증가
     end
 end
 
+%set(handles.num_spot,'String',spot_count); % spot 갯수 출력 (마지막에 +1 해줘서 1개 더 크게 나옴)
+
+%%%%%%%%%%%%% Lane dependent 일 때, 한 차선당 그려질 차량 수(unit_car_num) 계산 %%%%%%%%%%%%%
+num_lane_hor = 0;
+num_lane_ver = 0;
+
+for a = 1:Num_horizontal
+    aa = yrw(a)/7;
+    num_lane_hor = num_lane_hor + aa;
+end
+
+for a = 1:Num_vertical
+    aa = xrw(a)/7;
+    num_lane_ver = num_lane_ver + aa;
+end
+
+unit_car_num = fix(Num_vehicle / (num_lane_hor + num_lane_ver));
+
+%%%%%%%%%%%%% unit_car_num 갯수 계산할 배열생성 %%%%%%%%%%%
+if(Num_horizontal > Num_vertical)
+    car_count = zeros(4,Num_horizontal);
+else
+    car_count = zeros(4,Num_vertical);
+end
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 vehicle=struct(); % vehicle 관련 변수들 struct로 형싱화함
 RV=10; % Vehicle에 들어갈 component의 갯수
-temp=zeros(1,length(RV)); % 초기 설정시 필요한 임시 random number 생성할 갯수
+% 초기 설정시 필요한 임시 random number 생성할 갯수
+% zeros(1,n) : 모든 원소가 0인 1xn 행렬을 만듦
+temp=zeros(1,length(RV)); 
 
-for i=1:Num_vehicle
-    
+for i=1:(Num_vehicle+RSU_NUM)
+    if(i>Num_vehicle)
+        vehicle(i).ID = Num_vehicle+j;
+        vehicle(i).spot_in = 0;
+        vehicle(i).speed = 0;      
+    end
+
     %%%% vehicle마다 고유의 ID 부여해줌
     vehicle(i).ID = i;
     vehicle(i).spot_in = 0;
@@ -267,11 +306,11 @@ for i=1:Num_vehicle
     
     %%%%%% 속도 설정 %%%%%%
     if(i < Num_vehicle/3)
-        vehicle(i). speed = 0.4;
+        vehicle(i). speed = 0.2;
     elseif((i>= Num_vehicle/3) && ( i < (Num_vehicle*2)/3) )
-        vehicle(i). speed = 1.0;   
+        vehicle(i). speed = 0.4;   
     else
-        vehicle(i). speed = 1.5;    
+        vehicle(i). speed = 0.8;    
     end
     
     
@@ -296,12 +335,34 @@ for i=1:Num_vehicle
     if vehicle(i).direction == '<' % 초기방향이 왼쪽이라면
         % 왼쪽으로 가는(수평) 도로에 놓여지도록
         % 이때, 수평 도로에 놓여지는 x좌표는 동일범위(xrw(1)~X_Road_Size - xrw(3))로설정
+        % fix: 0 방향으로 반올림 
         temp(1,2) = fix(Num_horizontal*rand()+1);
         t = temp(1,2);
         d = yrw(t)/7;   %차선을 고려한 차 분포를 위한 변수
         random_d = fix(d*rand()+1);
         vehicle(i).Location = [ fix(xrw(1,1)+(X_Size_Road-xrw(1,3))*rand()),hor_centerLine(1,t)+(1.75)*(2*random_d - 1)];
-        
+
+%         temp(1,2) = fix(Num_horizontal*rand()+1);
+%         t = temp(1,2);
+%         no = t;
+%         d = yrw(t)/7;   %차선을 고려한 차 분포를 위한 변수
+%         random_d = fix(d*rand()+1);
+%         
+%         if( car_count(1,t) == (unit_car_num*d));
+%             while(t == no);
+%                 temp(1,2) = fix(Num_horizontal*rand()+1);
+%                 t = temp(1,2);
+%                 d = yrw(t)/7;   % 차선을 고려한 차 분포를 위한 변수
+%                 random_d = fix(d*rand()+1);
+%             end        
+%         end
+%         
+%         vehicle(i).Location = [ fix(xrw(1,1)+(X_Size_Road-xrw(1,3))*rand()),hor_centerLine(1,t)+(1.75)*(2*random_d - 1)];
+%         car_count(1,t) = car_count(1,t)+1;
+
+
+    
+      
     elseif vehicle(i).direction == '^' % 초기방향이 위쪽이라면
         % 위쪽으로 가는 도로에 놓여지도록
         temp(1,3) = fix(Num_vertical*rand()+1);
@@ -339,18 +400,23 @@ vehicle(source).s = text(vehicle(source).Location(1)+10,vehicle(source).Location
 vehicle(destination).d = text(vehicle(destination).Location(1)+10,vehicle(destination).Location(2)+10,'destination','Position',[300 300]);
 
 %% %%%%%%%%%%%%%%%%%%%% 처음 차량 그리기 %%%%%%%%%%%%%%%%%%%%%%%%
-for i=1:Num_vehicle % 차량 한번에 생성해서 뿌려주기
+for i=1:(Num_vehicle+RSU_NUM) % 차량 한번에 생성해서 뿌려주기
+    if(i>Num_vehicle)
+        vehicle(i).Location(1)=RSU_POSITION(i-Num_vehicle,1);
+        vehicle(i).Location(2)=RSU_POSITION(i-Num_vehicle,2);
+    end
     vehicle(i).imageCar = line('XData',vehicle(i).Location(1), 'YData',vehicle(i).Location(2), 'Color','b', ...
         'Marker',vehicle(i).direction, 'MarkerSize',7, 'LineWidth',0.5);
     vehicle(i).t = text(vehicle(i).Location(1),vehicle(i).Location(2),int2str(i),'Position',[300 300]);
 end
+
 
 %% %%%%%%%%%%%%%% Move 정보 시작 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % (속도, 초기방향에 따른 각도 )
 %% 시간흐름에 따라 진행
 MAX_TIME = 1000;
 for time = 1:MAX_TIME % 시간에 따른 움직임확인
-        for i=1:Num_vehicle  
+        for i=1:(Num_vehicle+RSU_NUM)  
             % 각 차량의 초기 방향에 따른 위치 설정 (이를 이용해서 x,y좌표 증감 결정)
             if vehicle(i).direction == '<' % 초기에 왼쪽으로 출발
                 % 왼쪽이동
@@ -722,7 +788,12 @@ for time = 1:MAX_TIME % 시간에 따른 움직임확인
                 end
                 vehicle(i).spot_in = 0;
             end
-                  
+            %추가된 부분
+            if(i>Num_vehicle)
+               vehicle(i).Location(1)=RSU_POSITION(i-Num_vehicle,1);
+               vehicle(i).Location(2)=RSU_POSITION(i-Num_vehicle,2);
+            end
+
             if vehicle(i).ID == source
                 set(vehicle(source).imageCar, 'XData',vehicle(source).Location(1), 'YData',vehicle(source).Location(2) , 'Color','r', ...
                     'Marker',vehicle(source).direction, 'MarkerSize',20,'LineWidth',6) % 그리기    
@@ -750,7 +821,6 @@ for time = 1:MAX_TIME % 시간에 따른 움직임확인
        
         pause(0.05);
 end
-
 
 
 
